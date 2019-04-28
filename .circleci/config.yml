@@ -14,4 +14,10 @@ jobs:
          name: Code Has Arrived
          command: |
            ls -al
-           echo '^^^That should look familiar^^^
+           echo '^^^That should look familiar^^^'
+           cd expo
+           npm i
+     - run:
+         name: Tests
+         command: |
+           npm 
