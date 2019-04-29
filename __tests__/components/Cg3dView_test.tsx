@@ -1,27 +1,34 @@
 import React from 'react'
-import shallow from 'enzyme'
-import from Cg3dView '../components/Cg3dView'
+import renderer from 'react-test-renderer'
+import Cg3dView from '../../src/components/Cg3dView'
 
-let mockDimensions = jest.mock('Dimensions', )
+const Dimensions = jest.genMockFromModule('Dimensions')
+
 describe('Cg3dView', () => {
     describe('Rendering', () => {
         
-        beforeAll(() => {
+        let rendered: Cg3dView = null
 
+        beforeAll(() => {
+            rendered = renderer.create(<Cg3dView />).toJSON()
         })
 
         it('renders without crashing', () => {
-            const rendered = renderer.create(<Cg3dView />).toJSON()
             expect(rendered).toBeTruthy()
         })
         
         it('matches against snapshot', () => {
-            const tree = renderer.create(<Cg3dView />).toJSON()
-            expect(tree).toMatchSnapshot()
+            expect(rendered).toMatchSnapshot()
         })
         
-        it('fits the full width of the viewport', () => {
-        
+        it('gets the dimensions of the window', () => {
+            expect(Dimensions.get).toBeCalled()
+            expect(Dimensions.get).toBeCalledTimes(1)
+            expect(Dimensions.get).toHaveBeenCalledWith('window')
+        })
+
+        xit('it creates an ExpoTHREE.Renderer and passes props to it', () => {
+
         })
     })
 })
